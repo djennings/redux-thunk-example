@@ -1,19 +1,38 @@
 import * as Count from '../constants';
 import { createSelector } from 'reselect';
 
-// reducers
-export function counterReducer(state = 0, action) {
-  switch (action.type) {
-    case Count.increment:
-      return state + action.payload;
-    case Count.decrement:
-      return state - action.payload;
-    default:
-      return state;
-  }
+/* 
+   ********************************************************************
+   ********************************************************************
+   ***                          reducers                            ***
+   ********************************************************************
+   ********************************************************************
+*/
+// lookup table
+const lookup = {
+  [Count.increment]: (state, action) => incrementCount(state, action),
+  [Count.decrement]: (state, action) => decrementCount(state, action)
+};
+
+// reducer handlers
+const decrementCount  = (state, action) => {
+  return state - action.payload;
 }
 
-// selectors
+const incrementCount = (state, action) => {
+  return state + action.payload;
+}
+
+// reducer lookup 
+export const counterReducer = (state = 0, action) => lookup[action.type] ? lookup[action.type](state, action) : state;
+
+/* 
+   ********************************************************************
+   ********************************************************************
+   ***                          selectors                           ***
+   ********************************************************************
+   ********************************************************************
+*/
 const getCountValue = state => state.counter;
 
 export const getCurrentCount = createSelector(
@@ -23,7 +42,13 @@ export const getCurrentCount = createSelector(
   }
 );
 
-// action creators
+/* 
+   ********************************************************************
+   ********************************************************************
+   ***                          action creators                     ***
+   ********************************************************************
+   ********************************************************************
+*/
 export const increment = payload => {
   return {
     type: Count.increment,

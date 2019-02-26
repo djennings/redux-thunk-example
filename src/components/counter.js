@@ -64,10 +64,16 @@ Counter.propTypes = {
   increment: PropTypes.func,
 }
 
-const mapStateToProps = state => ({
-  counter: getCurrentCount(state), // from a useless selector used as an example
-  isLoading: state.isLoading
-});
+// We are creating a FUNCTION for map state to props so that this component
+// will get it's OWN copy of the selectors 
+// NORMALLY YOU WOULD ONLY DO THIS IF YOU WERE PASSING PROPS TO THE SELECTOR!!!
+const makeMapStateToProps = () => {
+  const mapStateToProps = state => ({
+    counter: getCurrentCount(state), // from a useless selector used as an example
+    isLoading: state.isLoading
+  });
+  return mapStateToProps;
+}
 
 const mapDispatchToProps = dispatch => ({
   delay: (inc) => dispatch(delay(inc)),
@@ -76,6 +82,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(
-  mapStateToProps,
+  makeMapStateToProps,
   mapDispatchToProps
 )(Counter);
