@@ -17,12 +17,74 @@ button:focus {outline:0;}
 
 .loadingMask {
   align-items: center;
-  background-color: hsla(0, 0%, 0%, 0.25);
+  background-color: hsl(292, 91%, 8%, 0.8);
   display: flex;
+  flex-direction: column;
   height: 100vh;
   justify-content: center;
   left: 0;
   position: absolute;
   top: 0;
   width: 100vw;
+}
+
+.loader {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: linear-gradient(#14ffe9, #ffeb3b, #ff00e0);
+  background-color: red;
+  animation: animate 0.5s linear infinite;
+}
+
+@keyframes animate {
+  0%
+  {
+    transform: rotate(0deg);
+  }
+  100%
+  {
+    transform: rotate(360deg);
+  }
+}
+
+.loader span {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: linear-gradient(#14ffe9, #ffeb3b, #ff00e0);
+}
+
+.loader span:nth-child(1) {
+  filter: blur(5px);
+}
+
+.loader span:nth-child(2) {
+  filter: blur(10px);
+}
+
+.loader span:nth-child(3) {
+  filter: blur(25px);
+}
+
+.loader span:nth-child(4) {
+  filter: blur(50px);
+}
+
+.loader span:after {
+  content: '';
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  bottom: 10px;
+  left: 10px;
+  background-color: hsl(292, 91%, 8%);
+  border-radius: 50%;
+}
+
+.loadingText {
+  color: #fff;
+  position: relative;
 }
