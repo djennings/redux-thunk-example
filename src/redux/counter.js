@@ -8,12 +8,6 @@ import { createSelector } from 'reselect';
    ********************************************************************
    ********************************************************************
 */
-// lookup table
-const lookup = {
-  [Count.increment]: (state, action) => incrementCount(state, action),
-  [Count.decrement]: (state, action) => decrementCount(state, action)
-};
-
 // reducer handlers
 const decrementCount  = (state, action) => {
   return state - action.payload;
@@ -22,6 +16,12 @@ const decrementCount  = (state, action) => {
 const incrementCount = (state, action) => {
   return state + action.payload;
 }
+
+// lookup table
+const lookup = {
+  [Count.increment]: incrementCount,
+  [Count.decrement]: decrementCount
+};
 
 // reducer lookup 
 export const counterReducer = (state = 0, action) => lookup[action.type] ? lookup[action.type](state, action) : state;

@@ -26,5 +26,5 @@ export const store = createStore(
 );
 
 store.subscribe(() => {
-  saveState(store.getState());
+  saveState({ counter: store.getState().counter });
 });
